@@ -31,7 +31,7 @@ function trainLookup (train_nr) {
 
 function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="", train_nr="", st_filter="", cat_name="", opt_args="") {
 	//sanity checking
-	if ((searchmode == "station") && (st_name != "" || line_nr != "")) {
+	if ((searchmode == "station") && ((st_name == "") && (line_nr == ""))) {
 		throw new Error('In station mode you have to provide a station name or a line number!');
 	}
 	if ((searchmode == "tableplus") && (table_nr == "")) {
@@ -40,8 +40,9 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 	if ((searchmode == "train") && (train_nr == "")) {
 		throw new Error('In train lookup mode you have to provide a train number!');
 	}
-	var request = baseurl + "?st_name=" + st_name + "&line_nr=" + line_nr + "&table_nr=" + table_nr + "&st_filter=" + st_filter + "&cat_name=" + cat_name + "&searchmode="+ searchmode+ "&mainframe=result&dosearch=1&oblig_st=1" + opt_args;
+	var request = baseurl + "?st_name=" + st_name + "&train_nr=" + train_nr + "&line_nr=" + line_nr + "&table_nr=" + table_nr + "&st_filter=" + st_filter + "&cat_name=" + cat_name + "&searchmode="+ searchmode+ "&mainframe=result&dosearch=1&oblig_st=1" + opt_args;
 	var response;
+	//console.log(request);
 	//getting data
 	return new Promise(function(resolve, reject) {
 		http.get(request, (resp) => {
@@ -51,7 +52,7 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 				body += chunk;
 			});
 			resp.on('end', function() {
-				//console.log(response);
+				//console.log(body);
 				response = body.substring(body.indexOf("Stand"),body.indexOf("nach oben"));
 				
 				//parsing

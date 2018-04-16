@@ -1,6 +1,6 @@
 {
   "name": "bahn-kursbuch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "API for the DB Kursbuch",
   "main": "kursbuch.js",
   "scripts": {
