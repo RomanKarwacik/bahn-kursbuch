@@ -1,0 +1,27 @@
+{
+  "name": "bahn-kursbuch",
+  "version": "1.0.0",
+  "description": "API for the DB Kursbuch",
+  "main": "kursbuch.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomanKarwacik/bahn-kursbuch.git"
+  },
+  "keywords": [
+    "kursbuch",
+    "db",
+    "railway",
+    "german",
+    "api",
+    "hafas"
+  ],
+  "author": "Roman Karwacik <roman.karwacik@ewetel.net> (https://github.com/RomanKarwacik)",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/RomanKarwacik/bahn-kursbuch/issues"
+  },
+  "homepage": "https://github.com/RomanKarwacik/bahn-kursbuch#readme"
+}
