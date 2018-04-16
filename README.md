@@ -34,6 +34,20 @@ kursbuch.trainLookup("NWB82300").then(function(res) {
 
 "008000294" gives the same results as "Osnabrück HBF", the ID's can be obtained for example with [db-hafas](https://github.com/derhuerst/db-hafas) (Could also be implemented through Kursbuch, maybe later).
 
+## Output format example
+```javascript
+kursbuch.trainLookup("NWB82300").then(function(res) {
+  console.log(res);
+});
+```
+Returns:
+```
+[ { doc: 'http://kursbuch.bahn.de/hafas/kbview.exe/dn/KB392_Mo_Fr_H_Mo_Fr_G24112017.pdf?filename=KB392_Mo_Fr_H_Mo_Fr_G24112017.pdf&orig=',
+    kbs: '392',
+    line: 'NWB 18',
+    route: 'Wilhelmshaven - Oldenburg - Cloppenburg - Osnabrück',
+    date: '24.11.2017' } ]
+```
 ## Installation
 
 ```bash
