@@ -1,6 +1,8 @@
 const http = require('http');
 const util = require('util');
-
+const Entities = require('html-entities').AllHtmlEntities;
+ 
+const entities = new Entities();
 //Unknown Parameters:
 // &controlpattern=Q&orig=sT
 // orig=sS&oblig_st=1
@@ -59,7 +61,7 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 				var linksregex = /^<a href=\n"[\s\S]*?"/gm;
 				var kbsregex = /target="_blank">[0-9.,]*?</gm;
 				var lineregex = /50px">[\s\S]*?</gm;
-				var strregex = /500px">[\s\S]*?</gm;
+				var strregex = /500px">[\s\S]*?<\/td/gm;
 				var standregex = /30px">[\s\S]*?</gm;
 				var links = response.match(linksregex);
 				var kbs = response.match(kbsregex);
@@ -75,20 +77,14 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 				for (var i = 0; i < links.length; i++) {
 					res.push({	"doc" : links[i].substring("<a href=\n\"".length,links[i].length-1),
 								"kbs" : kbs[i].substring("target=\"_blank\">".length,kbs[i].length-1),
-								"line" : lines[i].substring("px>\"\n\n>".length,lines[i].length-2).replace("\n",""),
-								"route" : decodeHTML(str[i].substring("\npx>\"\n\n>".length,str[i].length-2)),
+								"line" : lines[i].substring("px>\"\n\n>".length,lines[i].length-2).replace(/\n/g,""),
+								"route" : entities.decode(str[i].substring("\npx>\"\n\n>".length,str[i].length-5)).replace(/\n/g,"").replace(/<i>/g," ").replace(/<\/i>/g," "),
 								"date" : stand[i].substring("px>\"\n\n>".length,stand[i].length-2)
 					});
 				}
 				resolve(res);
 			});
 		});
-	});
-}
-
-function decodeHTML (str) {
-	return str.replace(/&#(\d+);/g, function(match, dec) {
-		return String.fromCharCode(dec);
 	});
 }
 

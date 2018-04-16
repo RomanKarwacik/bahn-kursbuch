@@ -1,6 +1,6 @@
 {
   "name": "bahn-kursbuch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "API for the DB Kursbuch",
   "main": "kursbuch.js",
   "scripts": {
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/RomanKarwacik/bahn-kursbuch/issues"
   },
-  "homepage": "https://github.com/RomanKarwacik/bahn-kursbuch#readme"
+  "homepage": "https://github.com/RomanKarwacik/bahn-kursbuch#readme",
+  "dependencies": {
+    "html-entities": "^1.2.1"
+  }
 }
