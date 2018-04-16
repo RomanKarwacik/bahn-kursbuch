@@ -4,30 +4,30 @@ This NodeJS module is an API for http://kursbuch.bahn.de/hafas/kbview.exe.
 ## Code Example
 
 ```javascript
-const kurbsbuch = require('bahn-kursbuch');
+const kursbuch = require('bahn-kursbuch');
 
 //Lookup KBS 360 entry
-kurbsbuch.tableLookup("360").then(function(res) {
+kursbuch.tableLookup("360").then(function(res) {
   console.log(res);
 });
 
 //Lookup every Kursbuch entry at "Osnabrück HBF" over "Halen"
-kurbsbuch.stationLookup("008000294","","Halen").then(function(res) {
+kursbuch.stationLookup("008000294","","Halen").then(function(res) {
   console.log(res);
 });
 
 //Lookup every Kursbuch entry for "NWB" trains at "Osnabrück HBF"
-kurbsbuch.stationLookup("008000294","","","NWB").then(function(res) {
+kursbuch.stationLookup("008000294","","","NWB").then(function(res) {
   console.log(res);
 });
 
 //Lookup every Kursbuch entry for line "NWB 18" at "Osnabrück HBF"
-kurbsbuch.stationLookup("008000294","NWB 18").then(function(res) {
+kursbuch.stationLookup("008000294","NWB 18").then(function(res) {
   console.log(res);
 });
 
 //Lookup Kursbuch entries for train "NWB82300"
-kurbsbuch.trainLookup("NWB82300").then(function(res) {
+kursbuch.trainLookup("NWB82300").then(function(res) {
   console.log(res);
 });
 ```
