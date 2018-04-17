@@ -7,6 +7,10 @@ const entities = new Entities();
 // &controlpattern=Q&orig=sT
 // orig=sS&oblig_st=1
 
+//&oblig_st=1
+//
+
+
 /*
 var st_name = "Ganderkesee"; //Muss Eindeutig sein (Name oder ID), station mode
 var st_filter = ""; //Muss Eindeutig sein (Name oder ID), station mode
@@ -19,7 +23,7 @@ var train_nr = ""; //train mode
 
 var baseurl = "http://kursbuch.bahn.de/hafas/kbview.exe/dn";
 
-function stationLookup (st_name, line_nr="", st_filter="", cat_name="") {
+function stationLookup (st_name="", line_nr="", st_filter="", cat_name="") {
 	return makeRequest("station",st_name,"",line_nr,"",st_filter,cat_name,"");
 }
 
@@ -42,7 +46,10 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 	if ((searchmode == "train") && (train_nr == "")) {
 		throw new Error('In train lookup mode you have to provide a train number!');
 	}
-	var request = baseurl + "?st_name=" + st_name + "&train_nr=" + train_nr + "&line_nr=" + line_nr + "&table_nr=" + table_nr + "&st_filter=" + st_filter + "&cat_name=" + cat_name + "&searchmode="+ searchmode+ "&mainframe=result&dosearch=1&oblig_st=1" + opt_args;
+	var request = baseurl + "?st_name=" + st_name + "&train_nr=" + train_nr + "&line_nr=" + line_nr + "&table_nr=" + table_nr + "&st_filter=" + st_filter + "&cat_name=" + cat_name + "&searchmode="+ searchmode+ "&mainframe=result&dosearch=1" + opt_args;
+	if ((searchmode == "station") && (st_name = "")) {
+		request += "&oblig_st=1";
+	}
 	var response;
 	//console.log(request);
 	//getting data
@@ -59,17 +66,19 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 				
 				//parsing
 				var linksregex = /^<a href=\n"[\s\S]*?"/gm;
-				var kbsregex = /target="_blank">[0-9.,]*?</gm;
+				var kbsregex = /target="_blank">[S0-9.,\-]*?</gm;
 				var lineregex = /50px">[\s\S]*?</gm;
 				var strregex = /500px">[\s\S]*?<\/td/gm;
 				var standregex = /30px">[\s\S]*?</gm;
+
 				var links = response.match(linksregex);
 				var kbs = response.match(kbsregex);
 				var lines = response.match(lineregex);
 				var str = response.match(strregex);
 				var stand = response.match(standregex);
 
-				if (links == null || kbs == null || lines == null || str == null || stand == null) {
+				if (links == null || kbs == null || lines == null || str == null || stand == null ||
+					links == undefined || kbs == undefined || lines == undefined || str == undefined || stand == undefined) {
 					reject('RegEx failed, probably the site changed!');
 				}
 
