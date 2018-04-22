@@ -47,7 +47,7 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 		throw new Error('In train lookup mode you have to provide a train number!');
 	}
 	var request = baseurl + "?st_name=" + st_name + "&train_nr=" + train_nr + "&line_nr=" + line_nr + "&table_nr=" + table_nr + "&st_filter=" + st_filter + "&cat_name=" + cat_name + "&searchmode="+ searchmode+ "&mainframe=result&dosearch=1" + opt_args;
-	if ((searchmode == "station") && (st_name = "")) {
+	if ((searchmode == "station") && !(st_name == "")) {
 		request += "&oblig_st=1";
 	}
 	var response;
@@ -105,3 +105,7 @@ function test () {
 		console.log(res);
 	});
 }
+
+stationLookup("","NWB 18").then(function(res) {
+  console.log(res);
+});
