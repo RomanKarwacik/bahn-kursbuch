@@ -66,7 +66,7 @@ function makeRequest (searchmode="station", st_name="", table_nr="", line_nr="",
 				
 				//parsing
 				var linksregex = /^<a href=\n"[\s\S]*?"/gm;
-				var kbsregex = /target="_blank">[S0-9.,\-]*?</gm;
+				var kbsregex = /target="_blank">[A-Z0-9.,\-]*?</gm;
 				var lineregex = /50px">[\s\S]*?</gm;
 				var strregex = /500px">[\s\S]*?<\/td/gm;
 				var standregex = /30px">[\s\S]*?</gm;
@@ -105,7 +105,3 @@ function test () {
 		console.log(res);
 	});
 }
-
-stationLookup("","NWB 18").then(function(res) {
-  console.log(res);
-});
